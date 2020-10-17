@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="2"
-    tools:context=".ui.page.PageFragment">
+    android:layout_height="match_parent">
+
     <fragment
         tools:layout="@layout/fragment_user_info"
         android:name="com.example.b_my_friend.ui.page.UserInfoFragment"
         android:id="@+id/user_info"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-
+        android:layout_height="@dimen/half_screen"
         />
-    <fragment
-        tools:layout="@layout/fragment_feed"
-        android:name="com.example.b_my_friend.ui.page.FeedFragment"
-        android:id="@+id/feed"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <fragment
+            android:id="@+id/feed"
+            android:name="com.example.b_my_friend.ui.page.FeedFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/half_screen"
+            tools:layout="@layout/fragment_feed" />
+    </ScrollView>
+</FrameLayout>

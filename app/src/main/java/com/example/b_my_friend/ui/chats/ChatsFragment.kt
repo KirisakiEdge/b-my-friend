@@ -47,7 +47,6 @@ class ChatsFragment : Fragment() {
     private fun setChatAdapter(){
         list_chat.setHasFixedSize(true)
         manager = LinearLayoutManager(activity)
-        Log.e("TAG", manager.toString())
         list_chat.layoutManager = manager
         adapter = ChatListAdapter(list)
         list_chat.adapter = adapter
