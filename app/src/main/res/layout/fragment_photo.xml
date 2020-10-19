@@ -4,13 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".ui.page.PhotoFragment">
 
-    <TextView
-        android:id="@+id/test"
+    <GridView
+
+        android:id="@+id/gridPhoto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/border"
-        android:text="@string/large_text" />
-
+        android:layout_gravity="center"
+        android:numColumns="3"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp" />
 </LinearLayout>

@@ -1,12 +1,12 @@
 package com.example.b_my_friend.ui.page
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.b_my_friend.R
+import com.example.b_my_friend.adapter.GridPhotoAdapter
 import kotlinx.android.synthetic.main.fragment_photo.*
 
 
@@ -14,6 +14,9 @@ class PhotoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val gridPhotoAdapter = GridPhotoAdapter(activity!!)
+        gridPhoto.adapter = gridPhotoAdapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

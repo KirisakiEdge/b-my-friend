@@ -1,7 +1,5 @@
 package com.example.b_my_friend.adapter
 
-import android.content.Context
-import androidx.annotation.NonNull
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.b_my_friend.ui.page.BlogFragment
@@ -25,4 +23,5 @@ import com.example.b_my_friend.ui.page.PhotoFragment
     override fun getItemCount(): Int {
         return totalTabs
     }
+
 }
