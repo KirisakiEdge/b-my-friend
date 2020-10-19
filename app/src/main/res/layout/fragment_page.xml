@@ -1,29 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/border"
     android:layout_height="match_parent">
 
-    <fragment
-        tools:layout="@layout/fragment_user_info"
-        android:name="com.example.b_my_friend.ui.page.UserInfoFragment"
-        android:id="@+id/user_info"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/half_screen"
-        android:background="@drawable/border" />
-
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
-        <fragment
-            android:id="@+id/feed"
-            android:name="com.example.b_my_friend.ui.page.FeedFragment"
+        android:background="@drawable/border"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:background="@drawable/border"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    tools:context=".ui.page.UserInfoFragment">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_launcher"
+                        app:civ_border_color="#FFFF"
+                        app:civ_border_width="2dp" />
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Name Surname"
+                        android:textColor="#FFFF"
+                        android:textSize="36sp"
+                        android:layout_marginBottom="100dp"/>
+                </LinearLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/feedTabsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                app:tabTextColor="#FFFF"
+                tools:targetApi="lollipop" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/layoutNestedScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/half_screen"
-            tools:layout="@layout/fragment_feed" />
-    </ScrollView>
-</FrameLayout>
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/feedViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

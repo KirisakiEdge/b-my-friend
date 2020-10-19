@@ -21,15 +21,9 @@ class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = FeedAdapter(activity!!, 2)
-        feedViewPager.adapter = adapter
-        TabLayoutMediator(feedTabsLayout, feedViewPager){
-                tab, position ->
-            if (position == 0)
-                tab.text = "Photo"
-            else
-                tab.text = "Blog"
-        }.attach()
+
+
+
     }
 
     override fun onCreateView(

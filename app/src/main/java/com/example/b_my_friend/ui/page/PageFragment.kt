@@ -1,14 +1,10 @@
 package com.example.b_my_friend.ui.page
 
-import android.content.Context
-import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.b_my_friend.R
 import com.example.b_my_friend.adapter.FeedAdapter
@@ -22,6 +18,18 @@ class PageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val adapter = FeedAdapter(activity!!, 2)
+        feedViewPager.adapter = adapter
+        TabLayoutMediator(feedTabsLayout, feedViewPager){
+                tab, position ->
+            if (position == 0)
+                tab.text = "Photo"
+            else
+                tab.text = "Blog"
+        }.attach()
+        feedTabsLayout.tabGravity = TabLayout.GRAVITY_FILL
+
+        avatar.setOnClickListener { Toast.makeText(activity!!, "CLICK CLACK", Toast.LENGTH_LONG).show() }
 
     }
 
