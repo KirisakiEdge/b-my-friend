@@ -15,7 +15,6 @@
             android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -27,7 +26,7 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
-                <fragment
+                <androidx.fragment.app.FragmentContainerView
                     tools:layout="@layout/fragment_user_info"
                     android:name="com.example.b_my_friend.ui.page.UserInfoFragment"
                     android:id="@+id/user_info"
@@ -41,7 +40,7 @@
                 android:id="@+id/feedTabsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border"
+                android:background="#2C2A2A"
                 app:tabTextColor="#FFFF"
                 tools:targetApi="lollipop" />
         </com.google.android.material.appbar.AppBarLayout>
