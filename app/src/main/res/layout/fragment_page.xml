@@ -1,63 +1,58 @@
-<LinearLayout
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/border">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/border"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar_layout"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:background="@drawable/border"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
+
+            <androidx.fragment.app.FragmentContainerView
+                tools:layout="@layout/fragment_user_info"
+                android:name="com.example.b_my_friend.ui.page.UserInfoFragment"
+                android:id="@+id/user_info"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:background="@drawable/border"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                android:layout_height="@dimen/half_screen"
+                android:background="@drawable/border" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
-                <androidx.fragment.app.FragmentContainerView
-                    tools:layout="@layout/fragment_user_info"
-                    android:name="com.example.b_my_friend.ui.page.UserInfoFragment"
-                    android:id="@+id/user_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/half_screen"
-                    android:background="@drawable/border" />
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/feedTabsLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#2C2A2A"
-                app:tabTextColor="#FFFF"
-                tools:targetApi="lollipop" />
-        </com.google.android.material.appbar.AppBarLayout>
-
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/layoutNestedScroll"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/feedTabsLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="wrap_content"
+            android:background="#2C2A2A"
+            app:tabTextColor="#FFFF"
+            tools:targetApi="lollipop" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/feedViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
 
-        </androidx.core.widget.NestedScrollView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</LinearLayout>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/layoutNestedScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/feedViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
