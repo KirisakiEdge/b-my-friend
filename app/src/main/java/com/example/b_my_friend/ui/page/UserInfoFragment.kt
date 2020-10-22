@@ -19,7 +19,7 @@ class UserInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        avatar.setOnClickListener { Toast.makeText(activity!!, "CLICK CLACK", Toast.LENGTH_LONG).show() }
+        avatar.setOnClickListener { Toast.makeText(activity, "CLICK CLACK", Toast.LENGTH_LONG).show() }
     }
 
     override fun onCreateView(

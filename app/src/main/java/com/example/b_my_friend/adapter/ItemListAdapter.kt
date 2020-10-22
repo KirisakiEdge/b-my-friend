@@ -1,15 +1,18 @@
 package com.example.b_my_friend.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.b_my_friend.R
 import com.example.b_my_friend.databinding.ItemListBinding
 import com.example.b_my_friend.model.Chat
 
-class ChatListAdapter(private val myDataset: MutableList<Chat>) :RecyclerView.Adapter<ChatListAdapter.ViewHolder>() {
+class ItemListAdapter(private val myDataset: MutableList<Chat>) :RecyclerView.Adapter<ItemListAdapter.ViewHolder>() {
 
 
 
@@ -17,7 +20,7 @@ class ChatListAdapter(private val myDataset: MutableList<Chat>) :RecyclerView.Ad
 
         val binding: ItemListBinding = DataBindingUtil.inflate( LayoutInflater.from(parent.context)
             ,R.layout.item_list, parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, parent.context)
     }
 
 
@@ -29,14 +32,13 @@ class ChatListAdapter(private val myDataset: MutableList<Chat>) :RecyclerView.Ad
 
     override fun getItemCount() = myDataset.size
 
-    class ViewHolder(v: ItemListBinding) : RecyclerView.ViewHolder(v.root) {
-        private val nameChat: TextView = itemView.findViewById(R.id.nameChat)
-        private val infoChat: TextView = itemView.findViewById(R.id.infoChat)
-
-        fun bind(chat: Chat){
-            nameChat.text = chat.name
-            infoChat.text = chat.info
+    class ViewHolder(private val v: ItemListBinding, val context: Context) : RecyclerView.ViewHolder(v.root) {
+        fun bind(chat: Chat) {
+            v.nameChat.text = chat.name
+            v.infoChat.text = chat.info
+            itemView.setOnClickListener {
+                Toast.makeText(context, v.nameChat.text, Toast.LENGTH_LONG).show()
+            }
         }
-
     }
 }

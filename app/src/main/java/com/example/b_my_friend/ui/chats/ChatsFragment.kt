@@ -5,22 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.b_my_friend.R
-import com.example.b_my_friend.adapter.ChatListAdapter
+import com.example.b_my_friend.adapter.ItemListAdapter
 import com.example.b_my_friend.model.Chat
 import kotlinx.android.synthetic.main.fragment_chats.*
 
-class ChatsFragment : Fragment() {
+class ChatsFragment : Fragment()/*, ItemListAdapter.OnItemListener*/ {
 
     private var list: MutableList<Chat> = ArrayList()
-    private lateinit var adapter: ChatListAdapter
+    private lateinit var adapter: ItemListAdapter
     private lateinit var manager: RecyclerView.LayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        uploadList()
        // Log.e("TAG", list.toString())
 
     }
@@ -40,10 +41,10 @@ class ChatsFragment : Fragment() {
 
 
     private fun setChatAdapter(){
-        list_chat.setHasFixedSize(true)
+        //list_chat.setHasFixedSize(true)
         manager = LinearLayoutManager(activity)
         list_chat.layoutManager = manager
-        adapter = ChatListAdapter(list)
+        adapter = ItemListAdapter(list)
         list_chat.adapter = adapter
 
 
@@ -55,5 +56,10 @@ class ChatsFragment : Fragment() {
         list.add(Chat("11222221", "133311"))
         list.add(Chat("1122221", "114444411"))
         list.add(Chat("112222211", "5555555"))
+        list.add(Chat("11111", "11111"))
+        list.add(Chat("11222221", "133311"))
+        list.add(Chat("1122221", "114444411"))
+        list.add(Chat("112222211", "5555555"))
     }
+
 }

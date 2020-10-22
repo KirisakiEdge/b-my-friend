@@ -11,8 +11,8 @@ import kotlinx.android.synthetic.main.item_grid_photo.view.*
 class GridPhotoAdapter(context: Context) : BaseAdapter() {
 
     private var imageArrayList = arrayOf(
-        com.example.b_my_friend.R.mipmap.ic_launcher, com.example.b_my_friend.R.mipmap.ic_launcher, com.example.b_my_friend.R.mipmap.ic_launcher,
-        com.example.b_my_friend.R.mipmap.ic_launcher, com.example.b_my_friend.R.mipmap.ic_launcher, com.example.b_my_friend.R.mipmap.ic_launcher)
+        com.example.b_my_friend.R.mipmap.temp_icon,  com.example.b_my_friend.R.mipmap.temp_icon,  com.example.b_my_friend.R.mipmap.temp_icon,
+        com.example.b_my_friend.R.mipmap.temp_icon,  com.example.b_my_friend.R.mipmap.temp_icon,  com.example.b_my_friend.R.mipmap.temp_icon)
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
