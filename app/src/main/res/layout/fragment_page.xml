@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/border">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -27,8 +26,7 @@
                 android:name="com.example.b_my_friend.ui.page.UserInfoFragment"
                 android:id="@+id/user_info"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/half_screen"
-                android:background="@drawable/border" />
+                android:layout_height="@dimen/half_screen" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
@@ -36,9 +34,9 @@
             android:id="@+id/feedTabsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#2C2A2A"
             app:tabTextColor="#FFFF"
             tools:targetApi="lollipop" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -54,5 +52,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="#343434"
+        app:srcCompat="@drawable/plus"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

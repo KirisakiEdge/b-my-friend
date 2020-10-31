@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.b_my_friend.R
 import com.example.b_my_friend.databinding.ItemBlogBinding
-import com.example.b_my_friend.model.Chat
 
 class BlogAdapter () : RecyclerView.Adapter<BlogAdapter.ViewHolder>() {
 

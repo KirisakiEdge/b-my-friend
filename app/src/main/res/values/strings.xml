@@ -7,10 +7,25 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Navigation Drawer -->
     <string name="menu_page">My Page</string>
-    <string name="menu_chats">My Chats</string>
+    <string name="menu_contacts">My Contacts</string>
     <string name="menu_group">My Group</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_log">Log out</string>
+    <string name="theme_switcher">Dark theme</string>
+
+
+    <!-- logoutDialog -->
+    <string name="dialog_1">Dialog 1</string>
+    <string name="dialog_2">Dialog 2</string>
+    <string name="dialog_text">Are you sure you want to log out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="maybe">Maybe</string>
+
     <!-- TODO: Remove or change this placeholder text -->
+    <item name="id_for_message" type="id" />
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -101,4 +116,29 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <!-- Preference Titles -->
+    <string name="messages_header"><font color='white' size='20'>Massage</font></string>
+    <string name="sync_header"><font color='white' size='20'>Sync</font></string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title"><fond>Download incoming attachments</fond></string>
+    <string name="attachment_summary_on"><fond>Automatically download attachments for incoming emails</fond></string>
+    <string name="attachment_summary_off"><fond>Only download attachments when manually requested</fond></string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>

@@ -19,7 +19,7 @@
             android:layout_height="150dp"
             app:civ_border_color="#FFFF"
             app:civ_border_width="2dp"
-            android:src="@mipmap/temp_icon"/>
+            android:src="@mipmap/temp_icon_round"/>
 
         <TextView
             android:layout_width="wrap_content"

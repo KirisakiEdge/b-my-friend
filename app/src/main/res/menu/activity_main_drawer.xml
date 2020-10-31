@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_page"
             android:icon="@drawable/ic_my_page"
             android:title="@string/menu_page" />
         <item
-            android:id="@+id/nav_chats"
-            android:icon="@drawable/ic_my_chats"
-            android:title="@string/menu_chats" />
+            android:id="@+id/nav_contacts"
+            android:icon="@drawable/ic_my_contacts"
+            android:title="@string/menu_contacts" />
         <item
             android:id="@+id/nav_groups"
             android:icon="@drawable/ic_my_group"
             android:title="@string/menu_group" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_my_setting"
+            android:title="@string/menu_setting" />
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_exit"
+            android:title="@string/menu_log" />
     </group>
+
+  <!--  <item android:title=""
+        android:id="@+id/switch_container">
+        <menu>
+            <group android:checkableBehavior="single">
+            </group>
+        </menu>
+    </item>-->
+
 </menu>
