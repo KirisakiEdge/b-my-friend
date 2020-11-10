@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.b_my_friend.R
 import com.example.b_my_friend.databinding.ItemListBinding
 import com.example.b_my_friend.ui.chat.ChatActivity
-import com.example.b_my_friend.data.model.Contact
+import com.example.b_my_friend.data.model.User
 
-class GroupAdapter(private val myDataset: MutableList<Contact>) :RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
+class GroupAdapter(private val myDataset: MutableList<User>) :RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,12 +33,12 @@ class GroupAdapter(private val myDataset: MutableList<Contact>) :RecyclerView.Ad
 
     class ViewHolder(private val v: ItemListBinding, val context: Context) : RecyclerView.ViewHolder(v.root) {
             private val intent = Intent(context, ChatActivity::class.java)
-        fun bind(contact: Contact) {
-            v.chatImage.setImageResource(contact.avatar)
-            v.nameChat.text = contact.name
-            v.infoChat.text = contact.password
+        fun bind(user: User) {
+            v.chatImage.setImageResource(user.avatar)
+            v.nameChat.text = user.name
+            v.infoChat.text = user.email
             itemView.setOnClickListener {
-                Toast.makeText(context, contact.name, Toast.LENGTH_LONG).show()
+                Toast.makeText(context, user.name, Toast.LENGTH_LONG).show()
 
             }
         }

@@ -1,24 +1,28 @@
 package com.example.b_my_friend.ui.contacts
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.b_my_friend.R
 import com.example.b_my_friend.adapter.ContactsAdapter
-import com.example.b_my_friend.data.model.Contact
+import com.example.b_my_friend.data.model.Account
+import com.example.b_my_friend.data.model.User
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_contacts.*
+import java.lang.Exception
 
 class ContactsFragment : Fragment() {
 
-    var list: MutableList<Contact> = ArrayList()
+    var list: MutableList<User> = ArrayList()
     private lateinit var adapter: ContactsAdapter
 
-    private  val manager = LinearLayoutManager(activity)
-    lateinit var contact: Contact
+    private var manager = LinearLayoutManager(activity)
+    lateinit var account: Account
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +32,6 @@ class ContactsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        uploadList()
-        setChatAdapter()
 
 
 
@@ -44,16 +46,28 @@ class ContactsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_contacts, container, false)
+        val view = inflater.inflate(R.layout.fragment_contacts, container, false)
+        val listChat = view.findViewById<RecyclerView>(R.id.list_contacts)
+        try { //Because logout dialog go to contacts for background when manager is older
+            uploadList()
+            setChatAdapter(listChat)
+        }catch (e: Exception){
+            Log.e("TAG", e.toString())
+            manager = LinearLayoutManager(activity)
+            listChat.layoutManager = manager
+            setChatAdapter(listChat)
+        }
+
+        return view
     }
 
 
-    private fun setChatAdapter(){
+    private fun setChatAdapter(listView: RecyclerView){
 
         //temp
-        adapter = ContactsAdapter(list)
-        list_chat.layoutManager = manager
-        list_chat.adapter = adapter
+        adapter = ContactsAdapter(list, )
+        listView.layoutManager = manager
+        listView.adapter = adapter
 
        // Log.e("TAG", "$list")
         //list_chat.setHasFixedSize(true)
@@ -83,15 +97,15 @@ class ContactsFragment : Fragment() {
 
 
     private fun uploadList(){
-
-        list.add(Contact(name = "11111", password = "11111", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name = "11222221",password = "133311", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name = "1122221",password = "114444411", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name = "112222211",password = "5555555", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name = "11111",password = "11111", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name = "11222221",password = "133311", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name = "1122221",password = "114444411", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name = "112222211",password = "5555555", avatar = R.mipmap.ic_launcher_round))
+        list.clear() // when star try catch for logout need clear list
+        list.add(User(name = "11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name = "11222221", email = "133311", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name = "1122221", email = "114444411", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name = "112222211", email = "5555555", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name = "11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name = "11222221", email = "133311", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name = "1122221", email = "114444411", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name = "112222211", email = "5555555", avatar = R.mipmap.ic_launcher_round))
     }
 
 }

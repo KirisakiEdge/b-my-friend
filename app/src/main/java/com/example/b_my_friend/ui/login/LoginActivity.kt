@@ -1,6 +1,6 @@
 package com.example.b_my_friend.ui.login
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -12,62 +12,51 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.example.b_my_friend.MainActivity
 import com.example.b_my_friend.R
-import com.example.b_my_friend.data.model.Contact
+import com.example.b_my_friend.data.SessionManager
+import com.example.b_my_friend.data.model.LoggedInUser
 import com.example.b_my_friend.networking.NetworkService
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Callback
+import java.net.UnknownHostException
 
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
 
-    override fun onStart() {
-        super.onStart()
-        ////////////////////FIREBASE/////////////////////////////////
-      /*  val firebaseUser = FirebaseAuth.getInstance().currentUser
-        if (firebaseUser != null){
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
-        */
-        ////////////////////FIREBASE/////////////////////////////////
-
-    }
+    var currentUser: LoggedInUser? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val sessionManager = SessionManager(applicationContext)
+
+        if (sessionManager.fetchAuthToken() != null){
+            //(applicationContext, sessionManager.fetchAuthToken()!!)
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+
+        }
+
         setContentView(R.layout.activity_login)
 
-        ////////////////////FIREBASE/////////////////////////////////
-       // val SIGN_IN_REQUEST_CODE = 1
-       // var auth = FirebaseAuth.getInstance()
-       // var database = Firebase.database
-
-
-        //////////////////////////////////////////////////////////
-
-        val email = findViewById<EditText>(R.id.emailId)
-        val password = findViewById<EditText>(R.id.passwordId)
-        val login = findViewById<Button>(R.id.login)
-        val register = findViewById<Button>(R.id.register)
+        val email = findViewById<EditText>(R.id.emailIn)
+        val password = findViewById<EditText>(R.id.passwordIn)
+        val login = findViewById<Button>(R.id.register)
+        val register = findViewById<Button>(R.id.registerIn)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
-
-        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+        loginViewModel = LoginViewModel(applicationContext)
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
@@ -76,96 +65,14 @@ class LoginActivity : AppCompatActivity() {
             login.isEnabled = loginState.isDataValid
 
             if (loginState.emailError != null) {
-                emailId.error = getString(loginState.emailError)
+                emailIn.error = getString(loginState.emailError)
             }
             if (loginState.passwordError != null) {
                 password.error = getString(loginState.passwordError)
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-            val loginResult = it ?: return@Observer
 
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                  showLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                 updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
-
-            val call = NetworkService().getService().registerUser(
-                name = emailId.text.toString(),
-                email = emailId.text.toString(),
-                password = password.text.toString()
-            )
-            call.clone().enqueue(object : Callback<Contact> {
-                override fun onResponse(call: Call<Contact>, response: Response<Contact>) {
-                    Toast.makeText(this@LoginActivity, response.message(), Toast.LENGTH_LONG).show()
-
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    intent.putExtra("login", emailId.text.toString())
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    finish()
-
-                }
-
-                override fun onFailure(call: Call<Contact>, t: Throwable) {
-                    Log.e("TAG", t.message)
-                    Toast.makeText(this@LoginActivity, "${t.message} t", Toast.LENGTH_LONG).show()
-                }
-
-            })
-
-            //Complete and destroy login activity once successful
-            /////////////////////////FireBase///////////////////////////////
-            /*Thread{
-                auth.createUserWithEmailAndPassword(username.text.toString(),password.text.toString())
-                    .addOnCompleteListener { it ->
-                        if (it.isSuccessful) {
-                            var firebaseUser = auth.currentUser
-                            var userid = firebaseUser!!.uid
-
-                            var user = database.getReference("Users").child(userid)
-                            var hashMap: HashMap<String,String> = HashMap()
-                            hashMap["id"] = userid //put()
-                            hashMap["username"] = username.text.toString()
-                            hashMap["password"] = password.text.toString()
-                            user.setValue(hashMap).addOnCompleteListener { it ->
-                                if (it.isSuccessful){
-                                    /////////////////////////////////////
-                                    runOnUiThread {
-                                        Toast.makeText(this, "Registration success, Click log again", Toast.LENGTH_LONG).show()
-                                    }
-                                    /////////////////////////////
-                                }
-                            }
-                        }else{
-                            auth.signInWithEmailAndPassword(username.text.toString(),password.text.toString())
-                            .addOnCompleteListener { it ->
-                                if (it.isSuccessful){
-                                    intent.putExtra("login", username.text.toString())
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                    startActivity(intent)
-                                    finish()
-                                }else{
-                                    runOnUiThread {
-                                        Toast.makeText(this, "Pleas connect Internet", Toast.LENGTH_LONG).show()
-                                    }
-                                }
-                            }
-                        }
-                    }
-            }.start()*/
-
-            //////////////////////////////////
-
-
-        })
 
         email.afterTextChanged {
             loginViewModel.loginDataChanged(
@@ -185,58 +92,94 @@ class LoginActivity : AppCompatActivity() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
-                            emailId.text.toString(),
-                            password.text.toString()
-                        )
+                        login(email.text.toString(), password.text.toString())
                 }
                 false
             }
+        }
 
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(email.text.toString(), password.text.toString())
+                login(email.text.toString(), password.text.toString())
+                GlobalScope.launch {
+                    delay(2000)
+
+                    Log.e("login", currentUser.toString())
+                    val sessionManager = SessionManager(applicationContext)
+                    loading.visibility = View.INVISIBLE
+                    if (currentUser!= null) {
+                        sessionManager.saveAuthToken(currentUser!!.accessToken)
+
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }else{
+                        runOnUiThread {
+                            Toast.makeText(this@LoginActivity, "Please try again", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+
             }
+
             register.setOnClickListener {
-                /*val fragment: Fragment = RegisterFragment()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, fragment)
-                    .commit()*/
+                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+                intent.putExtra("email", email.text.toString())
+                intent.putExtra("password", password.text.toString())
+                startActivity(intent)
+
             }
         }
+
+    private fun refreshToken(context: Context, token: String){
+        val sessionManager = SessionManager(context)
+        val call = NetworkService().getService().refreshToken("Bearer $token")
+        call.enqueue(object : Callback<LoggedInUser>{
+            override fun onResponse(call: Call<LoggedInUser>, response: Response<LoggedInUser>) {
+                if (response.isSuccessful) {
+                    sessionManager.saveAuthToken(response.body()!!.accessToken)
+                    Log.e("refresh", "Token Refresh")
+                }else{
+                    Log.e("refresh", response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
+                Toast.makeText(this@LoginActivity, "Internet connection not found", Toast.LENGTH_LONG).show()
+                Log.e("refresh", t.message)
+            }
+
+        })
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = emailId.text.toString()
-        // TODO : initiate successful logged in experience
+    private fun login(email: String, password: String){
 
-       /* Thread{
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("login", username.text.toString())
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            Log.e("TAG", intent.extras!!["login"].toString())
-            startActivity(intent)
-            finish()
-        }.start()*/
-
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+        val call = NetworkService().getService().login(email, password)
+        Thread{
+            try {
+                if (call.clone().execute().isSuccessful) {
+                    while (currentUser == null) {
+                        currentUser = call.clone().execute().body()
+                    }
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(this@LoginActivity, "Email or password wrong", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }catch (e: UnknownHostException){
+                runOnUiThread {
+                    Toast.makeText(this@LoginActivity, "Internet connection not found", Toast.LENGTH_LONG).show()
+                }
+                Log.e("login", e.toString())
+            }
+        }.start()
     }
 }
 
 /**
  * Extension function to simplify setting an afterTextChanged action to EditText components.
  */
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(editable: Editable?) {
             afterTextChanged.invoke(editable.toString())
@@ -247,3 +190,4 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     })
 }
+

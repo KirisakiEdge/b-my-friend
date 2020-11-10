@@ -11,8 +11,10 @@ import kotlinx.android.synthetic.main.activity_chat.*
 
 class ChatActivity : AppCompatActivity() {
 
-    lateinit var messageAdapter: MessageAdapter
+
     var lChat: MutableList<Chat> = ArrayList()
+    private val messageAdapter = MessageAdapter(lChat)
+    private val manager = LinearLayoutManager(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,16 +25,19 @@ class ChatActivity : AppCompatActivity() {
         chatAvatar.setImageResource(intent.extras!!["Avatar"] as Int)
         val userid = intent.extras!!["id"].toString()
 
+
         list_of_message.setHasFixedSize(true)
-        val manager = LinearLayoutManager(applicationContext)
         manager.stackFromEnd = true
         list_of_message.layoutManager = manager
-
+        list_of_message.adapter = messageAdapter
 
 
         backChat.setOnClickListener {
             onBackPressed()
+
         }
+
+
 
        /* chatSend.setOnClickListener {
             var msg = chatEnter.text.toString()

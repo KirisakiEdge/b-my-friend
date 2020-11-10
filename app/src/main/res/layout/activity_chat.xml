@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chatConstLayout"
@@ -18,8 +19,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/ChatToolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" >
+            android:layout_height="?attr/actionBarSize">
 
             <ImageView
                 android:id="@+id/backChat"
@@ -44,7 +44,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="offline"/>
+                        android:text="@string/offline"/>
                 </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -56,10 +56,8 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/chatSender"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar_chat"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/appbar_chat" />
 
     <LinearLayout
         android:id="@+id/chatSender"
@@ -78,7 +76,7 @@
             android:inputType="text"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:hint="Sent..." />
+            android:hint="@string/message" />
 
         <ImageView
             android:id="@+id/chatSend"

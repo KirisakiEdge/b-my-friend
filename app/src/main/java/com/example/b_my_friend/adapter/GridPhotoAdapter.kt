@@ -1,23 +1,44 @@
 package com.example.b_my_friend.adapter
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
 import com.example.b_my_friend.R
 import kotlinx.android.synthetic.main.item_grid_photo.view.*
+import kotlinx.android.synthetic.main.review_item_photo.view.*
+import java.io.*
+import java.net.URI
 
 
-class GridPhotoAdapter(val context: Context) : BaseAdapter() {
+class GridPhotoAdapter(val context: FragmentActivity) : BaseAdapter() {
 
     private var imageArrayList = arrayOf(
-        R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
-        R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
-        R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground,
-        R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground, R.drawable.ic_launcher_foreground)
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_launcher_foreground,
+        R.drawable.ic_launcher_foreground
+    )
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -33,18 +54,46 @@ class GridPhotoAdapter(val context: Context) : BaseAdapter() {
         return imageArrayList[position].toLong()
     }
 
+
     @SuppressLint("ViewHolder", "InflateParams")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = inflater.inflate(R.layout.item_grid_photo, null)
 
-        view.setOnClickListener {
-            Toast.makeText(context, "CLICK${position + 1}", Toast.LENGTH_LONG).show()
+        //view.photo.setImageResource(imageArrayList[position])
+        view.photo.setImageResource(R.drawable.temp)
+
+        view.setOnLongClickListener {
+            //val pr = PhotoReview(imageArrayList[position])
+            val pr = PhotoReview(R.drawable.temp)
+            pr.show(context.supportFragmentManager, " Photo Review")
+
+            return@setOnLongClickListener true
         }
 
-        view.photo.setImageResource(imageArrayList[position])
+
+
+    /*    view.setOnClickListener {
+            Toast.makeText(context, "CLICK${position + 1}", Toast.LENGTH_LONG).show()
+        }*/
 
 
         return view
+    }
+
+    class PhotoReview(private val imageResource: Int): DialogFragment() {
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            view.photoReview.setImageResource(imageResource)
+        }
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+            val rootView: View = inflater.inflate(R.layout.review_item_photo, container, false)
+            return rootView
+        }
     }
 
 }

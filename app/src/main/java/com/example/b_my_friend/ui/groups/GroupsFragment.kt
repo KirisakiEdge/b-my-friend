@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.b_my_friend.R
 import com.example.b_my_friend.adapter.GroupAdapter
-import com.example.b_my_friend.data.model.Contact
+import com.example.b_my_friend.data.model.User
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_groups.*
 
 class GroupsFragment : Fragment(){
 
 
-    private var list: MutableList<Contact> = ArrayList()
+    private var list: MutableList<User> = ArrayList()
     private lateinit var adapter: GroupAdapter
     private lateinit var manager: RecyclerView.LayoutManager
 
@@ -46,25 +46,25 @@ class GroupsFragment : Fragment(){
 
 
     private fun setChatAdapter(){
-        list_chat.setHasFixedSize(true)
+        list_contacts.setHasFixedSize(true)
         manager = LinearLayoutManager(activity)
-        list_chat.layoutManager = manager
+        list_contacts.layoutManager = manager
         adapter = GroupAdapter(list)
-        list_chat.adapter = adapter
+        list_contacts.adapter = adapter
 
 
     }
 
 
     private fun uploadList(){
-        list.add(Contact(name ="11111", password = "11111", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name ="11111", password = "11111", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name ="11111", password = "11111", avatar = R.mipmap.temp_icon_round))
-        list.add(Contact(name ="11111", password = "11111", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name ="11111", password = "11111", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name ="11111", password = "11111", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name ="11111", password = "11111", avatar = R.mipmap.ic_launcher_round))
-        list.add(Contact(name ="11111", password = "11111", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name ="11111", email = "11111", avatar = R.mipmap.temp_icon_round))
+        list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
+        list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
 
 
 
