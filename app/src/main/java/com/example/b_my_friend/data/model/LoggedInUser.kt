@@ -15,10 +15,6 @@ data class LoggedInUser(
 
     @SerializedName("token_type")
     @Expose
-    var tokenType: String = "",
-
-    @SerializedName("expires_in")
-    @Expose
-    var expiresIn: String = ""){
+    var tokenType: String = ""){
 
 }

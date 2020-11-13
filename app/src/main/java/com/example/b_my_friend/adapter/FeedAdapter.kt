@@ -6,8 +6,8 @@ import com.example.b_my_friend.ui.page.BlogFragment
 import com.example.b_my_friend.ui.page.PhotoFragment
 
 
-@Suppress("DEPRECATION")
-    class FeedAdapter(fa: FragmentActivity, private var totalTabs: Int) : FragmentStateAdapter(fa) {
+
+class FeedAdapter(fa: FragmentActivity, private var totalTabs: Int) : FragmentStateAdapter(fa) {
     // this is for fragment tabs
     override fun createFragment(position: Int): Fragment {
         return when (position) {

@@ -43,6 +43,36 @@ class LoginViewModel(val context: Context) : ViewModel() {
         }
     }
 
+    fun emailVerify(email: String){
+        if (!isEmailValid(email)){
+            _loginForm.value = LoginFormState(emailError = R.string.invalid_email)
+        } else {
+            _loginForm.value = LoginFormState(isDataValid = true)
+        }
+    }
+
+    fun resetCode(code: String){
+        if (code.length < 7){
+            _loginForm.value = LoginFormState(codeError = R.string.invalidCode)
+        } else {
+            _loginForm.value = LoginFormState(isDataValid = true)
+        }
+    }
+
+    fun resetPassword(newPassword: String, passwordConfirm: String){
+        when {
+            newPassword.length < 5 -> {
+                _loginForm.value = LoginFormState(newPasswordError = R.string.invalidNewPassword)
+            }
+            passwordConfirm != newPassword -> {
+                _loginForm.value = LoginFormState(passwordConfirmError = R.string.invalidPasswordConfirm)
+            }
+            else -> {
+                _loginForm.value = LoginFormState(isDataValid = true)
+            }
+        }
+    }
+
 
 
     private fun isUserNameValid(username: String): Boolean {

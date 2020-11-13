@@ -42,27 +42,4 @@ class UserAuth(val context: Context) {
             })
         }
     }
-
-    suspend fun refreshToken(): User{
-        val sessionManager = SessionManager(context)
-        val call = NetworkService().getService().refreshToken("Bearer ${sessionManager.fetchAuthToken()}")
-        return suspendCoroutine {continuation->
-            call.enqueue(object : Callback<LoggedInUser>{
-                override fun onResponse(call: Call<LoggedInUser>, response: Response<LoggedInUser>) {
-                    if (response.isSuccessful) {
-                        sessionManager.saveAuthToken(response.body()!!.accessToken)
-                        continuation.resume(response.body()!!.user)
-                        //Log.e("auth", "Token Refresh")
-                    }else{
-                       // Log.e("auth", response.message())
-                    }
-                }
-
-                override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
-                    Log.e("refresh", t.message)
-                }
-            })
-        }
-
-    }
 }

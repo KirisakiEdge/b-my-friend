@@ -21,10 +21,6 @@ data class User(
     @Expose
     var emailVerifiedAt: Any? = null,
 
-    @SerializedName("email_verification_token")
-    @Expose
-    var emailVerificationToken: Any? = null,
-
     var avatar: Int = R.mipmap.ic_launcher_round){
 
 

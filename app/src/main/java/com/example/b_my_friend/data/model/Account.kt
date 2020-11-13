@@ -5,9 +5,10 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Contact(
+data class Account(
+    @SerializedName("id")
+    @Expose
     var id: String = "",
-
     @SerializedName("name")
     @Expose
     var name: String = "",
@@ -16,11 +17,9 @@ data class Contact(
     @Expose
     var email: String = "",
 
-    @SerializedName("password")
+    @SerializedName("email")
     @Expose
-    var password: String = "",
-
-    var emailVerifiedAt: Any? = null,
+    var password: String,
     var avatar: Int = R.mipmap.ic_launcher_round){
 
 

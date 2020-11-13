@@ -1,6 +1,5 @@
 package com.example.b_my_friend.ui.login
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -19,13 +18,13 @@ import com.example.b_my_friend.R
 import com.example.b_my_friend.data.SessionManager
 import com.example.b_my_friend.data.model.LoggedInUser
 import com.example.b_my_friend.networking.NetworkService
+import com.example.b_my_friend.ui.login.forgotPassword.FPContainer
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
 import retrofit2.Callback
+import java.lang.Exception
 import java.net.UnknownHostException
 
 
@@ -98,58 +97,41 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                login(email.text.toString(), password.text.toString())
-                GlobalScope.launch {
-                    delay(2000)
 
-                    Log.e("login", currentUser.toString())
-                    val sessionManager = SessionManager(applicationContext)
-                    loading.visibility = View.INVISIBLE
-                    if (currentUser!= null) {
-                        sessionManager.saveAuthToken(currentUser!!.accessToken)
+        login.setOnClickListener {
+            loading.visibility = View.VISIBLE
+            login(email.text.toString(), password.text.toString())
+            GlobalScope.launch {
+                delay(2000)
 
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }else{
-                        runOnUiThread {
-                            Toast.makeText(this@LoginActivity, "Please try again", Toast.LENGTH_LONG).show()
-                        }
+                Log.e("login", currentUser.toString())
+                if (currentUser!= null) {
+                    sessionManager.saveAuthToken(currentUser!!.accessToken)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }else{
+                    runOnUiThread {
+                        loading.visibility = View.INVISIBLE
+                        Toast.makeText(this@LoginActivity, "Please try again", Toast.LENGTH_LONG).show()
                     }
                 }
-
             }
 
-            register.setOnClickListener {
-                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-                intent.putExtra("email", email.text.toString())
-                intent.putExtra("password", password.text.toString())
-                startActivity(intent)
-
-            }
         }
 
-    private fun refreshToken(context: Context, token: String){
-        val sessionManager = SessionManager(context)
-        val call = NetworkService().getService().refreshToken("Bearer $token")
-        call.enqueue(object : Callback<LoggedInUser>{
-            override fun onResponse(call: Call<LoggedInUser>, response: Response<LoggedInUser>) {
-                if (response.isSuccessful) {
-                    sessionManager.saveAuthToken(response.body()!!.accessToken)
-                    Log.e("refresh", "Token Refresh")
-                }else{
-                    Log.e("refresh", response.message())
-                }
-            }
+        register.setOnClickListener {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            intent.putExtra("email", email.text.toString())
+            intent.putExtra("password", password.text.toString())
+            startActivity(intent)
 
-            override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, "Internet connection not found", Toast.LENGTH_LONG).show()
-                Log.e("refresh", t.message)
-            }
+        }
 
-        })
+        forgotPassword.setOnClickListener {
+            val intent = Intent(this@LoginActivity, FPContainer::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun login(email: String, password: String){
@@ -166,7 +148,7 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this@LoginActivity, "Email or password wrong", Toast.LENGTH_LONG).show()
                     }
                 }
-            }catch (e: UnknownHostException){
+            }catch (e: Exception){
                 runOnUiThread {
                     Toast.makeText(this@LoginActivity, "Internet connection not found", Toast.LENGTH_LONG).show()
                 }

@@ -5,9 +5,21 @@ import android.content.SharedPreferences
 
 class SessionManager (context: Context) {
     private var prefs: SharedPreferences = context.getSharedPreferences("LoggedUser", Context.MODE_PRIVATE)
+    private var theme: SharedPreferences = context.getSharedPreferences("Theme", Context.MODE_PRIVATE)
 
     companion object {
         const val USER_TOKEN = "user_token"
+        const val THEME = "theme"
+    }
+
+    fun setTheme(boolean: Boolean){
+        val editor = theme.edit()
+        editor.putBoolean(THEME, boolean)
+        editor.apply()
+    }
+
+    fun getTheme(): Boolean{
+        return theme.getBoolean(THEME, true)
     }
 
 

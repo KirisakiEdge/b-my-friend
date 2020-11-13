@@ -20,9 +20,7 @@ class BlogFragment : Fragment() {
         setAdapter()
         list_blog.addItemDecoration(LayoutMarginDecoration(1, 50)) //scape between items in RecyclerView
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
