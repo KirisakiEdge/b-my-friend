@@ -24,6 +24,7 @@ import com.example.b_my_friend.data.model.User
 import com.example.b_my_friend.networking.UserAuth
 import com.example.b_my_friend.ui.page.PageViewModel
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -71,6 +72,10 @@ class MainActivity : AppCompatActivity() {
             Log.e("page", it.toString())
             userNS.text = it.name
             userEmail.text = it.email
+
+            if (it.emailVerifiedAt == null){
+                Snackbar.make(findViewById(android.R.id.content), "Please, verify your email in Setting", Snackbar.LENGTH_LONG).show()
+            }
         })
 
         // Passing each menu ID as a set of Ids because each

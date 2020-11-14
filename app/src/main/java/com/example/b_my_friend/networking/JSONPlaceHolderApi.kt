@@ -24,6 +24,9 @@ interface JSONPlaceHolderApi {
     @POST("api/auth/logout")
     fun logout(@Header("Authorization") token: String): Call<Message>
 
+    @POST("api/email/send-verification ")
+    fun sendEmailVerification(@Header("Authorization")token: String): Call<Message>
+
     @POST("api/auth/android/reset-password")
     fun resetPassword(@Query("email") email: String): Call<Message>
 
