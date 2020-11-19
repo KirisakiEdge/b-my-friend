@@ -18,7 +18,6 @@ import com.example.b_my_friend.R
 import com.example.b_my_friend.networking.Message
 import com.example.b_my_friend.networking.NetworkService
 import com.example.b_my_friend.ui.login.LoginViewModel
-import kotlinx.android.synthetic.main.fragment_code_for_verify.*
 import kotlinx.android.synthetic.main.fragment_email_for_recovery.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +25,6 @@ import retrofit2.Response
 
 
 class EmailForRecovery : Fragment() {
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,7 +34,7 @@ class EmailForRecovery : Fragment() {
             val call = NetworkService().getService().resetPassword(editTextEmailAddress.text.toString())
             call.enqueue(object : Callback<Message> {
                 override fun onResponse(call: Call<Message>, response: Response<Message>) {
-                    Log.e("emailRecovery", response.body()!!.message)
+                    //Log.e("emailRecovery", response.body()!!.message)
 
                     val bundle = bundleOf("email" to editTextEmailAddress.text.toString())
                     emailRecoveryLoading.visibility = View.INVISIBLE
@@ -45,7 +43,7 @@ class EmailForRecovery : Fragment() {
 
                 override fun onFailure(call: Call<Message>, t: Throwable) {
                     emailRecoveryLoading.visibility = View.INVISIBLE
-                    Log.e("emailRecovery", t.message)
+                    //Log.e("emailRecovery", t.message)
                     Toast.makeText(requireContext(), "Please, connect to the internet", Toast.LENGTH_LONG).show()
                 }
             })

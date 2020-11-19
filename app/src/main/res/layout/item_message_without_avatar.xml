@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
-    <RelativeLayout
-        android:layout_width="300dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iconMessage"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/textMessage"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iconMessage"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-
-        <TextView
-            android:id="@+id/textMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_toEndOf="@+id/iconMessage"
-            android:background="@drawable/message_bubble"
-            android:padding="10dp"
-            android:textColor="#FFFF"
-            android:text="test" />
-
-    </RelativeLayout>
-</layout>
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/iconMessage"
+        android:background="@drawable/message_bubble"
+        android:padding="10dp"
+        android:textColor="#FFFF"
+        android:text="test" />
+</RelativeLayout>

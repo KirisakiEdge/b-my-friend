@@ -160,4 +160,8 @@
     <string name="invalidNewPassword">Password length is 5</string>
     <string name="invalidPasswordConfirm">Passwords are not the same</string>
     <string name="invalidCode">Code length is 7</string>
+    <string name="followers">Followers:</string>
+    <string name="following">Following:</string>
+    <string name="follow">Follow</string>
+    <string name="unFollow">Unfollow</string>
 </resources>

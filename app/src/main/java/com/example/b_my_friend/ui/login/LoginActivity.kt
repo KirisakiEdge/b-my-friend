@@ -23,28 +23,21 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import retrofit2.Callback
 import java.lang.Exception
-import java.net.UnknownHostException
 
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
-
     var currentUser: LoggedInUser? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val sessionManager = SessionManager(applicationContext)
-
         if (sessionManager.fetchAuthToken() != null){
-            //(applicationContext, sessionManager.fetchAuthToken()!!)
             startActivity(Intent(this, MainActivity::class.java))
             finish()
-
         }
 
         setContentView(R.layout.activity_login)
@@ -56,7 +49,6 @@ class LoginActivity : AppCompatActivity() {
         val loading = findViewById<ProgressBar>(R.id.loading)
 
         loginViewModel = LoginViewModel(applicationContext)
-
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
 
@@ -70,7 +62,6 @@ class LoginActivity : AppCompatActivity() {
                 password.error = getString(loginState.passwordError)
             }
         })
-
 
 
         email.afterTextChanged {
@@ -117,7 +108,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
-
         }
 
         register.setOnClickListener {
@@ -152,7 +142,7 @@ class LoginActivity : AppCompatActivity() {
                 runOnUiThread {
                     Toast.makeText(this@LoginActivity, "Internet connection not found", Toast.LENGTH_LONG).show()
                 }
-                Log.e("login", e.toString())
+                //Log.e("login", e.toString())
             }
         }.start()
     }

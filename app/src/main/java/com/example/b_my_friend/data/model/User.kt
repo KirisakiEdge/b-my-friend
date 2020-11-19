@@ -19,9 +19,13 @@ data class User(
 
     @SerializedName("email_verified_at")
     @Expose
-    var emailVerifiedAt: Any? = null,
+    var emailVerifiedAt: String? = null,
 
-    var avatar: Int = R.mipmap.ic_launcher_round){
+    @SerializedName("email_verification_token")
+    @Expose
+    var emailVerificationToken: String? = null,
+
+    var avatar: Int = R.drawable.temp){
 
 
     override fun toString(): String {

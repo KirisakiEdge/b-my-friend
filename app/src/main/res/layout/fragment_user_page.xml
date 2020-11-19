@@ -14,9 +14,9 @@
         android:layout_height="wrap_content" />
 
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout"
@@ -32,12 +32,55 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
-                <androidx.fragment.app.FragmentContainerView
-                    tools:layout="@layout/fragment_user_info"
-                    android:name="com.example.b_my_friend.ui.page.UserInfoFragment"
-                    android:id="@+id/user_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/half_screen" />
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="300dp"
+                    android:layout_height="@dimen/half_screen"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/avatar"
+                        android:layout_gravity="center"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        app:civ_border_color="#FFFF"
+                        app:civ_border_width="2dp"
+                        android:src="@mipmap/temp_icon_round"/>
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:id="@+id/pageNick"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFF"
+                        android:background="@drawable/loading_background"
+                        android:textSize="26sp"/>
+                    <GridLayout
+                        android:layout_marginTop="10dp"
+                        android:columnCount="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/followersCount"
+                            android:layout_columnWeight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/followers"/>
+                        <TextView
+                            android:id="@+id/followingCount"
+                            android:layout_columnWeight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/following"/>
+                    </GridLayout>
+                    <Button
+                        android:id="@+id/follow"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:textSize="12sp"
+                        android:text="@string/follow"/>
+                </LinearLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
@@ -62,7 +105,8 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/feedViewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"/>
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

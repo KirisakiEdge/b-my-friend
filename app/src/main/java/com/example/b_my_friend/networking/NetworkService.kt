@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class NetworkService {
     companion object {
         private var mInstance: NetworkService? = null
-        private const val BASE_URL = "http://morning-beach-19824.herokuapp.com/"
+        private const val BASE_URL = "http://morning-beach-19824.herokuapp.com"
         val instance: NetworkService?
             get() {
                 if (mInstance == null) {

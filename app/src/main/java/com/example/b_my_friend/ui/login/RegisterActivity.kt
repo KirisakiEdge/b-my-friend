@@ -1,18 +1,13 @@
 package com.example.b_my_friend.ui.login
 
-import android.app.Activity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.b_my_friend.R
 import com.example.b_my_friend.data.model.Account
@@ -27,7 +22,6 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_register)
 
         val username = findViewById<EditText>(R.id.username)
@@ -60,8 +54,6 @@ class RegisterActivity : AppCompatActivity() {
             }
         })
 
-
-
         username.afterTextChanged {
             loginViewModel.registerDataChanged(
                 username.text.toString(),
@@ -90,7 +82,6 @@ class RegisterActivity : AppCompatActivity() {
                     email.text.toString(),
                     password.text.toString())
                 finish()
-
             }
         }
     }
@@ -102,15 +93,13 @@ class RegisterActivity : AppCompatActivity() {
         call.clone().enqueue(object : Callback<Account> {
             override fun onResponse(call: Call<Account>, response: Response<Account>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@RegisterActivity, response.message(), Toast.LENGTH_LONG)
-                        .show()
+                    Toast.makeText(this@RegisterActivity, response.message(), Toast.LENGTH_LONG).show()
                 } else {
-                    Log.e("register", response.message())
+                    //Log.e("register", response.message())
                 }
             }
-
             override fun onFailure(call: Call<Account>, t: Throwable) {
-                Log.e("register", t.message)
+                //Log.e("register", t.message)
             }
         })
     }

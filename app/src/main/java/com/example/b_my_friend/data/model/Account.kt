@@ -9,6 +9,7 @@ data class Account(
     @SerializedName("id")
     @Expose
     var id: String = "",
+
     @SerializedName("name")
     @Expose
     var name: String = "",
@@ -17,7 +18,7 @@ data class Account(
     @Expose
     var email: String = "",
 
-    @SerializedName("email")
+    @SerializedName("password")
     @Expose
     var password: String,
     var avatar: Int = R.mipmap.ic_launcher_round){

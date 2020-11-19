@@ -9,16 +9,18 @@ import com.example.b_my_friend.R
 import com.example.b_my_friend.data.model.User
 import de.hdodenhof.circleimageview.CircleImageView
 
-class ContactsAdapter(var list: MutableList<User>, private val onClickListener: ItemClickListener)
-    :RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
+class GroupsAdapter(private val myDataset: MutableList<User>, private val onClickListener: ItemClickListener)
+    :RecyclerView.Adapter<GroupsAdapter.ViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
         return ViewHolder(view, onClickListener)
     }
 
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = list[position]
+        val item = myDataset[position]
         if (item.name != "") {
             holder.nameView.text = item.name
             holder.nameView.background = null
@@ -26,13 +28,12 @@ class ContactsAdapter(var list: MutableList<User>, private val onClickListener: 
             holder.infoView.background = null
             holder.avatar.setImageResource(item.avatar)
         }
-
     }
 
-
-    override fun getItemCount() = list.size
+    override fun getItemCount() = myDataset.size
 
     inner class ViewHolder(view: View, private val onClickListener: ItemClickListener) : RecyclerView.ViewHolder(view) {
+
         val avatar: CircleImageView = view.findViewById(R.id.itemImage)
         val nameView: TextView = view.findViewById(R.id.nameItem)
         val infoView: TextView = view.findViewById(R.id.infoItem)
@@ -44,5 +45,4 @@ class ContactsAdapter(var list: MutableList<User>, private val onClickListener: 
     interface ItemClickListener{
         fun onItemClick(position: Int, view: View)
     }
-
 }

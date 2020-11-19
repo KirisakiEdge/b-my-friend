@@ -1,14 +1,12 @@
 package com.example.b_my_friend.adapter
 
-
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.b_my_friend.R
 import com.example.b_my_friend.data.model.Chat
-import kotlinx.android.synthetic.main.item_right_message.view.*
 
 class MessageAdapter(private var list: MutableList<Chat>) :RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
 
@@ -19,13 +17,11 @@ class MessageAdapter(private var list: MutableList<Chat>) :RecyclerView.Adapter<
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         when (viewType) {
             MSG_TYPE_RIGHT -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_right_message, parent, false)
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_right_message, parent, false)
                 return ViewHolder(view)
             }
             MSG_TYPE_LEFT -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_left_message, parent, false)
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_left_message, parent, false)
                 return ViewHolder(view)
             }
             else -> {
@@ -36,38 +32,31 @@ class MessageAdapter(private var list: MutableList<Chat>) :RecyclerView.Adapter<
         }
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
-
-
+        val item = list[position]
+        holder.text.text = item.message
     }
-
 
     override fun getItemCount() = list.size
 
     override fun getItemViewType(position: Int): Int {
-       /* user = FirebaseAuth.getInstance().currentUser!!
-        return if (list[position].sender == user.uid){
-            MSG_TYPE_RIGHT
-        }else {
-            if (position != 0 && position != itemCount-1) {
-                if (list[position].receiver == list[position + 1].receiver) {
-                    MSG_TYPE_WITHOUT_AVATAR
-                } else {
-                    MSG_TYPE_LEFT
-                }
-            }else
-                MSG_TYPE_LEFT
-        }*/
+        /* user = FirebaseAuth.getInstance().currentUser!!
+         return if (list[position].sender == user.uid){
+             MSG_TYPE_RIGHT
+         }else {
+             if (position != 0 && position != itemCount-1) {
+                 if (list[position].receiver == list[position + 1].receiver) {
+                     MSG_TYPE_WITHOUT_AVATAR
+                 } else {
+                     MSG_TYPE_LEFT
+                 }
+             }else
+                 MSG_TYPE_LEFT
+         }*/
         return MSG_TYPE_LEFT //temp
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(chat: Chat){
-            Log.e("TAG", chat.message)
-            itemView.textMessage.text = chat.message
-        }
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val text: TextView = view.findViewById(R.id.textMessage)
     }
 }

@@ -1,12 +1,11 @@
 package com.example.b_my_friend.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.b_my_friend.R
-import com.example.b_my_friend.databinding.ItemBlogBinding
 
 class BlogAdapter () : RecyclerView.Adapter<BlogAdapter.ViewHolder>() {
 
@@ -32,25 +31,21 @@ class BlogAdapter () : RecyclerView.Adapter<BlogAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val binding: ItemBlogBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context)
-            , R.layout.item_blog, parent, false)
-        return ViewHolder(binding)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_blog, parent, false)
+        return ViewHolder(view)
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(myDataset[position])
+        val item = myDataset[position]
+        holder.text.text = item
 
     }
 
 
     override fun getItemCount() = myDataset.size
 
-    class ViewHolder(v: ItemBlogBinding) : RecyclerView.ViewHolder(v.root) {
-        private val text: TextView = itemView.findViewById(R.id.text)
-        fun bind(s: String){
-            text.text = s
-        }
-
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val text: TextView = view.findViewById(R.id.text)
     }
 }

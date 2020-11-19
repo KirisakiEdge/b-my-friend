@@ -3,7 +3,6 @@ package com.example.b_my_friend.ui.login.forgotPassword
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,16 +11,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.example.b_my_friend.R
 import com.example.b_my_friend.networking.Message
 import com.example.b_my_friend.networking.NetworkService
 import com.example.b_my_friend.ui.login.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_code_for_verify.*
-import kotlinx.android.synthetic.main.fragment_email_for_recovery.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -46,21 +42,18 @@ class CodeForVerify : Fragment() {
                         GlobalScope.launch {
                             delay(1000)
                             val bundle = bundleOf("email" to email, "code" to editCode.text.toString())
-                            //checkCodeLoading.visibility = View.INVISIBLE
                             view.findNavController().navigate(R.id.action_codeForVerify2_to_passwordRecovery2, bundle)
                         }
                     }else {
                         checkCodeLoading.visibility = View.INVISIBLE
                         Toast.makeText(requireContext(), "Wrong Code", Toast.LENGTH_LONG).show()
-                        //Log.e("codeVerify", response.message())
                     }
                 }
                 override fun onFailure(call: Call<Message>, t: Throwable) {
-                    Log.e("codeVerify", t.message)
+                    //Log.e("codeVerify", t.message)
                     checkCodeLoading.visibility = View.INVISIBLE
                     Toast.makeText(requireContext(), "Please, connect to the internet", Toast.LENGTH_LONG).show()
                 }
-
             })
         }
     }

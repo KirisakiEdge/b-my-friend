@@ -1,19 +1,12 @@
 package com.example.b_my_friend.ui.login
 
-
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import android.widget.Toast
-import com.example.b_my_friend.data.Result
 import com.example.b_my_friend.R
-import com.example.b_my_friend.data.model.LoggedInUser
-import com.example.b_my_friend.networking.NetworkService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class LoginViewModel(val context: Context) : ViewModel() {
 

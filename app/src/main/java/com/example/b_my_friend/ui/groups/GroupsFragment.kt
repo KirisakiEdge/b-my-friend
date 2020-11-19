@@ -8,22 +8,21 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.b_my_friend.R
-import com.example.b_my_friend.adapter.GroupAdapter
+import com.example.b_my_friend.adapter.GroupsAdapter
 import com.example.b_my_friend.data.model.User
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_groups.*
 
-class GroupsFragment : Fragment(){
+class GroupsFragment : Fragment(), GroupsAdapter.ItemClickListener{
 
 
     private var list: MutableList<User> = ArrayList()
-    private lateinit var adapter: GroupAdapter
-    private lateinit var manager: RecyclerView.LayoutManager
+    private lateinit var adapter: GroupsAdapter
+    private val manager = LinearLayoutManager(activity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Log.e("TAG", list.toString())
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,12 +46,9 @@ class GroupsFragment : Fragment(){
 
     private fun setChatAdapter(){
         list_contacts.setHasFixedSize(true)
-        manager = LinearLayoutManager(activity)
         list_contacts.layoutManager = manager
-        adapter = GroupAdapter(list)
+        adapter = GroupsAdapter(list, this@GroupsFragment)
         list_contacts.adapter = adapter
-
-
     }
 
 
@@ -65,9 +61,9 @@ class GroupsFragment : Fragment(){
         list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
         list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
         list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
+    }
 
 
-
-
+    override fun onItemClick(position: Int, view: View) {
     }
 }

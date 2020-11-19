@@ -12,7 +12,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import com.example.b_my_friend.R
 import com.example.b_my_friend.networking.Message
 import com.example.b_my_friend.networking.NetworkService
@@ -24,7 +23,6 @@ import retrofit2.Response
 
 
 class PasswordRecovery : Fragment() {
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,14 +42,11 @@ class PasswordRecovery : Fragment() {
                         //Log.e("passwordRecovery", response.body()!!.message)
                     }
                 }
-
                 override fun onFailure(call: Call<Message>, t: Throwable) {
                     Log.e("passwordRecovery", t.message)
                     Toast.makeText(requireContext(), "Please, connect to the internet", Toast.LENGTH_LONG).show()
                 }
-
             })
-
         }
     }
 
@@ -98,7 +93,6 @@ private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         override fun afterTextChanged(editable: Editable?) {
             afterTextChanged.invoke(editable.toString())
         }
-
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}

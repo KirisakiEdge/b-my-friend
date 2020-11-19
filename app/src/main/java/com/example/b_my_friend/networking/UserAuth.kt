@@ -1,20 +1,15 @@
 package com.example.b_my_friend.networking
 
-
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
-import coil.request.Disposable
 import com.example.b_my_friend.data.SessionManager
 import com.example.b_my_friend.data.model.LoggedInUser
 import com.example.b_my_friend.data.model.User
-import kotlinx.coroutines.*
 import retrofit2.Call
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.coroutines.resumeWithException
 
 
 class UserAuth(val context: Context) {
@@ -36,7 +31,7 @@ class UserAuth(val context: Context) {
                 }
 
                 override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
-                    Toast.makeText(context, "Please, connect to the internet and restart app", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Please, connect to  internet", Toast.LENGTH_LONG).show()
                 }
 
             })

@@ -2,7 +2,6 @@ package com.example.b_my_friend.data.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
 data class LoggedInUser(
     @SerializedName("access_token")
@@ -15,6 +14,4 @@ data class LoggedInUser(
 
     @SerializedName("token_type")
     @Expose
-    var tokenType: String = ""){
-
-}
+    var tokenType: String = "")

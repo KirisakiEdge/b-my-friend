@@ -16,7 +16,6 @@ class BlogFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setAdapter()
         list_blog.addItemDecoration(LayoutMarginDecoration(1, 50)) //scape between items in RecyclerView
     }
@@ -37,5 +36,4 @@ class BlogFragment : Fragment() {
         val adapter = BlogAdapter()
         list_blog.adapter = adapter
     }
-
 }

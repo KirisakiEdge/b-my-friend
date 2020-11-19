@@ -1,6 +1,25 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">  <!-- main parent Theme.AppCompat-->
+<!-- Base application theme. -->
+<style name="AppTheme" parent="Theme.AppCompat">  <!-- main parent Theme.AppCompat-->
+    <!-- Customize your theme here. -->
+    <item name="android:textColor">#FFFF</item>
+    <item name="android:textColorSecondary">#CCFFFFFF</item>
+    <item name="colorPrimary">@color/colorPrimaryD</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDarkD</item>
+    <item name="colorAccent">@color/colorAccentD</item>
+
+</style>
+
+<style name="LightTheme" parent="Theme.AppCompat">
+    <!-- Customize your theme here. -->
+    <item name="android:textColor">#FFFF</item>
+    <item name="android:textColorSecondary">#CCFFFFFF</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+</style>
+
+    <style name="AppColors">  <!-- main parent Theme.AppCompat-->
         <!-- Customize your theme here. -->
         <item name="android:textColor">#FFFF</item>
         <item name="android:textColorSecondary">#CCFFFFFF</item>
@@ -10,7 +29,8 @@
 
     </style>
 
-    <style name="LightTheme" parent="Theme.AppCompat.NoActionBar">
+
+    <style name="LightColors">
         <!-- Customize your theme here. -->
         <item name="android:textColor">#FFFF</item>
         <item name="android:textColorSecondary">#CCFFFFFF</item>
@@ -19,24 +39,26 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="PreferenceTheme" parent="AppTheme">
-        <item name="android:background">#272727</item>
+    <style name="Dialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">?attr/colorPrimary</item>
+        <item name="android:gravity">center</item>
     </style>
 
+<style name="PreferenceTheme" parent="AppTheme">
+    <item name="android:background">?attr/colorPrimary</item>
+</style>
 
 
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
-        <item name="android:background">#272727</item>
-    </style>
+<style name="AppTheme.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+</style>
 
 
+<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+    <item name="android:background">?attr/colorAccent</item>
+</style>
 
 </resources>
