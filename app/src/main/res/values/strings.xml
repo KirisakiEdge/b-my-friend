@@ -164,4 +164,15 @@
     <string name="following">Following:</string>
     <string name="follow">Follow</string>
     <string name="unFollow">Unfollow</string>
+    <string name="fillInFiled">Please, fill in all fields</string>
+    <string name="verify">Verify</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="title">Title</string>
+    <string name="text">Text</string>
+    <string name="send">Send</string>
+    <string name="time">time</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="yourDesc">Your description</string>
+    <string name="nickname">Nickname</string>
 </resources>

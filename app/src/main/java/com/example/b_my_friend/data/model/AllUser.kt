@@ -51,5 +51,5 @@ data class AllUser (
 
     @SerializedName("total")
     @Expose
-    var total: String = "",
+    var total: String = ""
 )

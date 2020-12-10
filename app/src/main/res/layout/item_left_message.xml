@@ -9,7 +9,7 @@
         android:id="@+id/iconMessage"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/temp_icon" />
 
     <TextView
         android:id="@+id/textMessage"
@@ -20,5 +20,5 @@
         android:background="@drawable/message_bubble"
         android:padding="10dp"
         android:textColor="#FFFF"
-        android:text="test" />
+        android:text="@string/text" />
 </RelativeLayout>

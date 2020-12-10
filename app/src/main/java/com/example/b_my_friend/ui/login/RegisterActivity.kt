@@ -93,13 +93,13 @@ class RegisterActivity : AppCompatActivity() {
         call.clone().enqueue(object : Callback<Account> {
             override fun onResponse(call: Call<Account>, response: Response<Account>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@RegisterActivity, response.message(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@RegisterActivity, "Registration complete", Toast.LENGTH_LONG).show()
                 } else {
-                    //Log.e("register", response.message())
+                    Toast.makeText(this@RegisterActivity, response.message(), Toast.LENGTH_LONG).show()
                 }
             }
             override fun onFailure(call: Call<Account>, t: Throwable) {
-                //Log.e("register", t.message)
+                Toast.makeText(this@RegisterActivity, t.message, Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -113,9 +113,7 @@ private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         override fun afterTextChanged(editable: Editable?) {
             afterTextChanged.invoke(editable.toString())
         }
-
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     })
 }

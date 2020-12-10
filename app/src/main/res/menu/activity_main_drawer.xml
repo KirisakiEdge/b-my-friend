@@ -7,7 +7,7 @@
     <group
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_page"
+            android:id="@+id/nav_my_page"
             android:icon="@drawable/ic_my_page"
             android:title="@string/menu_page" />
         <item
@@ -33,7 +33,7 @@
             <item
                 android:id="@+id/switch_container"
                 android:icon="@drawable/ic_dark_mode"
-                android:title="Dark mode"
+                android:title="@string/dark_mode"
                 app:actionLayout="@layout/theme_switcher" />
         </menu>
     </item>

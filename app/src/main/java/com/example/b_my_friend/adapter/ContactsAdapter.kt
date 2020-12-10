@@ -1,5 +1,6 @@
 package com.example.b_my_friend.adapter
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,30 +20,27 @@ class ContactsAdapter(var list: MutableList<User>, private val onClickListener: 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
-        if (item.name != "") {
-            holder.nameView.text = item.name
-            holder.nameView.background = null
-            holder.infoView.text = item.email
-            holder.infoView.background = null
-            holder.avatar.setImageResource(item.avatar)
+        holder.nameView.text = item.name
+        holder.infoView.text = item.email
+        if (item.avatar != ""){
+            val bitmap = BitmapFactory.decodeFile(item.imgPath)
+            holder.avatar.setImageBitmap(bitmap)
         }
-
     }
-
 
     override fun getItemCount() = list.size
 
-    inner class ViewHolder(view: View, private val onClickListener: ItemClickListener) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View, private val onClickListener: ItemClickListener): RecyclerView.ViewHolder(
+        view
+    ) {
         val avatar: CircleImageView = view.findViewById(R.id.itemImage)
         val nameView: TextView = view.findViewById(R.id.nameItem)
         val infoView: TextView = view.findViewById(R.id.infoItem)
-
         init {
-            view.setOnClickListener { onClickListener.onItemClick(adapterPosition, view) }
+            view.setOnClickListener { onClickListener.onItemClick(adapterPosition) }
         }
     }
     interface ItemClickListener{
-        fun onItemClick(position: Int, view: View)
+        fun onItemClick(position: Int)
     }
-
 }
