@@ -19,5 +19,5 @@
         android:background="@drawable/message_bubble"
         android:padding="10dp"
         android:textColor="#FFFF"
-        android:text="test" />
+        android:text="@string/text" />
 </RelativeLayout>

@@ -13,29 +13,37 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.room.Room
 import com.example.b_my_friend.MainActivity
 import com.example.b_my_friend.R
 import com.example.b_my_friend.data.SessionManager
 import com.example.b_my_friend.data.model.LoggedInUser
+import com.example.b_my_friend.db.AccountDataBase
+import com.example.b_my_friend.networking.Count
 import com.example.b_my_friend.networking.NetworkService
 import com.example.b_my_friend.ui.login.forgotPassword.FPContainer
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.Exception
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
     var currentUser: LoggedInUser? = null
+    private val sessionManager by lazy {  SessionManager(applicationContext) }
+    private val accountDB: AccountDataBase by lazy { Room.databaseBuilder(applicationContext,
+        AccountDataBase::class.java, "account.db").build() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val sessionManager = SessionManager(applicationContext)
-        if (sessionManager.fetchAuthToken() != null){
+        if (sessionManager.fetchAuthToken() != null) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -44,9 +52,8 @@ class LoginActivity : AppCompatActivity() {
 
         val email = findViewById<EditText>(R.id.emailIn)
         val password = findViewById<EditText>(R.id.passwordIn)
-        val login = findViewById<Button>(R.id.register)
+        val login = findViewById<Button>(R.id.registration)
         val register = findViewById<Button>(R.id.registerIn)
-        val loading = findViewById<ProgressBar>(R.id.loading)
 
         loginViewModel = LoginViewModel(applicationContext)
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
@@ -82,32 +89,13 @@ class LoginActivity : AppCompatActivity() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        login(email.text.toString(), password.text.toString())
+                        loginCheck(email.text.toString(), password.text.toString())
                 }
                 false
             }
         }
-
-
         login.setOnClickListener {
-            loading.visibility = View.VISIBLE
-            login(email.text.toString(), password.text.toString())
-            GlobalScope.launch {
-                delay(2000)
-
-                Log.e("login", currentUser.toString())
-                if (currentUser!= null) {
-                    sessionManager.saveAuthToken(currentUser!!.accessToken)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }else{
-                    runOnUiThread {
-                        loading.visibility = View.INVISIBLE
-                        Toast.makeText(this@LoginActivity, "Please try again", Toast.LENGTH_LONG).show()
-                    }
-                }
-            }
+            loginCheck(email.text.toString(), password.text.toString())
         }
 
         register.setOnClickListener {
@@ -124,42 +112,55 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun login(email: String, password: String){
-
-        val call = NetworkService().getService().login(email, password)
-        Thread{
-            try {
-                if (call.clone().execute().isSuccessful) {
-                    while (currentUser == null) {
-                        currentUser = call.clone().execute().body()
-                    }
-                } else {
-                    runOnUiThread {
-                        Toast.makeText(this@LoginActivity, "Email or password wrong", Toast.LENGTH_LONG).show()
-                    }
-                }
-            }catch (e: Exception){
-                runOnUiThread {
-                    Toast.makeText(this@LoginActivity, "Internet connection not found", Toast.LENGTH_LONG).show()
-                }
-                //Log.e("login", e.toString())
+    private fun loginCheck(email: String, password: String) {
+        loading.visibility = View.VISIBLE
+        GlobalScope.launch {
+            currentUser = login(email, password)
+            Log.e("login", currentUser.toString())
+            if (currentUser != null) {
+                sessionManager.saveAuthToken(currentUser!!.accessToken)
+                accountDB.dao().saveAccount(currentUser!!.user)
+                accountDB.close()
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
-        }.start()
-    }
-}
-
-/**
- * Extension function to simplify setting an afterTextChanged action to EditText components.
- */
-private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
         }
+    }
 
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
+    private suspend fun login(email: String, password: String): LoggedInUser {
+        val call = NetworkService().getService().login(email, password)
+        return suspendCoroutine { continuation ->
+            call.clone().enqueue(object : Callback<LoggedInUser> {
+                override fun onResponse(call: Call<LoggedInUser>, response: Response<LoggedInUser>) {
+                    if (response.body() != null) {
+                        continuation.resume(response.body()!!)
+                    }else{
+                        loading.visibility = View.INVISIBLE
+                        Toast.makeText(applicationContext, "Email or password not correct", Toast.LENGTH_LONG).show()
+                    }
+                }
+                override fun onFailure(call: Call<LoggedInUser>, t: Throwable) {
+                    loading.visibility = View.INVISIBLE
+                    Toast.makeText(applicationContext, "Please, connect to  internet", Toast.LENGTH_LONG).show()
+                }
+            })
+        }
+    }
+
+    /**
+     * Extension function to simplify setting an afterTextChanged action to EditText components.
+     */
+    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+        this.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(editable: Editable?) {
+                afterTextChanged.invoke(editable.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        })
+    }
 }
 

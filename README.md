@@ -1,12 +1,12 @@
 # b-my-friend
 
-## Build Instuction
+## Build Instruction
 - **Download Android Studio** https://developer.android.com/studio
   - When install check "Android Virtual Device"
   - When first start android studio check in standart type of setup
 - Download, Unzip and Open Project in Android studio
 
-## Launch Instuction
+## Launch Instruction
 **You can launch from:** 
 1. Phisycal device
 2. Android Studio Emulator

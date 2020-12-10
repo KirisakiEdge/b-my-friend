@@ -1,9 +1,7 @@
 package com.example.b_my_friend.networking
 
-
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 
 class NetworkService {
     companion object {
@@ -17,7 +15,6 @@ class NetworkService {
                 return mInstance
             }
     }
-
 
     fun getService(): JSONPlaceHolderApi {
         val retrofit = Retrofit.Builder()

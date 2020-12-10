@@ -1,5 +1,9 @@
 package com.example.b_my_friend.adapter
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +17,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 class AddNewContactsAdapter(private val values: MutableList<User>, private val onClickListener: ItemClickListener)
     : RecyclerView.Adapter<AddNewContactsAdapter.ViewHolder>(){
 
+    lateinit var imageBytes: ByteArray
+    private  var image: Bitmap? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
         return ViewHolder(view, onClickListener)
@@ -20,12 +27,12 @@ class AddNewContactsAdapter(private val values: MutableList<User>, private val o
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        if (item.name != "") {
-            holder.nameView.text = item.name
-            holder.nameView.background = null
-            holder.infoView.text = item.email
-            holder.infoView.background = null
-            holder.avatar.setImageResource(item.avatar)
+        holder.nameView.text = item.name
+        holder.infoView.text = item.email
+        if (item.avatar != ""){
+            imageBytes = Base64.decode(item.avatar, Base64.DEFAULT)                         //decode base64 to bitmap
+            image = imageBytes.size.let { BitmapFactory.decodeByteArray(imageBytes, 0, it) }
+            holder.avatar.setImageBitmap(image)
         }
     }
 

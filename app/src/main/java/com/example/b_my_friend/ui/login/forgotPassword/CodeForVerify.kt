@@ -85,7 +85,6 @@ class CodeForVerify : Fragment() {
 
         return v
     }
-
 }
 
 private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
@@ -93,9 +92,7 @@ private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         override fun afterTextChanged(editable: Editable?) {
             afterTextChanged.invoke(editable.toString())
         }
-
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     })
 }

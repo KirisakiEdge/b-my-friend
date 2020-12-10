@@ -2,15 +2,16 @@ package com.example.b_my_friend.data.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.util.ArrayList
 
-data class AllFollow (
+data class AllFeeds(
     @SerializedName("current_page")
     @Expose
     var currentPage: String = "",
 
     @SerializedName("data")
     @Expose
-    var data: MutableList<User>,
+    var data: MutableList<Feed> = ArrayList(),
 
     @SerializedName("first_page_url")
     @Expose
@@ -22,7 +23,7 @@ data class AllFollow (
 
     @SerializedName("last_page")
     @Expose
-    var last_page: String = "",
+    var lastPage: String = "",
 
     @SerializedName("last_page_url")
     @Expose
@@ -50,36 +51,5 @@ data class AllFollow (
 
     @SerializedName("total")
     @Expose
-    var total: String = "",
+    var total: String = ""
 )
-
-/*
-data class Followers(
-    @SerializedName("id")
-    @Expose
-    var id: String = "",
-
-    @SerializedName("follower_id")
-    @Expose
-    var followerId: String = "",
-
-    @SerializedName("following_id")
-    @Expose
-    var followingId: String = "",
-
-    @SerializedName("created_at")
-    @Expose
-    var createdAt: String = "",
-
-    @SerializedName("updated_at")
-    @Expose
-    var updatedAt: String = "",
-
-    @SerializedName("follower")
-    @Expose
-    var follower: User = User(),
-
-    @SerializedName("following")
-    @Expose
-    var following: User = User(),
-)*/

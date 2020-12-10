@@ -6,10 +6,23 @@
     app:startDestination="@id/nav_contacts">
 
     <fragment
-        android:id="@+id/nav_page"
-        android:name="com.example.b_my_friend.ui.page.MyPageFragment"
+        android:id="@+id/nav_my_page"
+        android:name="com.example.b_my_friend.ui.page.myPage.MyPageFragment"
         tools:layout="@layout/fragment_my_page"
-        android:label=""/>
+        android:label="">
+        <action
+            android:id="@+id/action_nav_my_page_to_newPostFragment"
+            app:destination="@id/new_post" />
+        <action
+            android:id="@+id/action_nav_my_page_to_postEditFragment"
+            app:destination="@id/postEditFragment" />
+        <action
+            android:id="@+id/action_nav_my_page_to_addNewPhoto"
+            app:destination="@id/addNewPhoto" />
+        <action
+            android:id="@+id/action_nav_my_page_to_editablePhotoReview"
+            app:destination="@id/editablePhotoReview" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_contacts"
@@ -18,10 +31,10 @@
         tools:layout="@layout/fragment_contacts" >
         <action
             android:id="@+id/action_nav_contacts_to_addNewContactFragment"
-            app:destination="@id/addNewContactFragment" />
+            app:destination="@id/nav_add_new_contact" />
         <action
             android:id="@+id/action_nav_contacts_to_chatFragment"
-            app:destination="@id/chatFragment" />
+            app:destination="@id/nav_chat" />
     </fragment>
 
     <fragment
@@ -38,26 +51,59 @@
 
     <dialog
         android:id="@+id/nav_logout"
-        android:name="com.example.b_my_friend.ui.LogoutDialogFragment" />
+        android:name="com.example.b_my_friend.ui.LogoutDialogFragment"
+        android:label="Logout" />
 
     <dialog
-        android:id="@+id/addNewContactFragment"
+        android:id="@+id/nav_add_new_contact"
         android:name="com.example.b_my_friend.ui.AddNewContactFragment"
         tools:layout="@layout/fragment_add_new_contact_list">
         <action
             android:id="@+id/action_addNewContactFragment_to_userPageFragment"
-            app:destination="@id/UserPageFragment" />
+            app:destination="@id/nav_user_page" />
     </dialog>
     <fragment
-        android:id="@+id/UserPageFragment"
-        android:name="com.example.b_my_friend.ui.page.UserPageFragment"
-        tools:layout="@layout/fragment_user_page" />
+        android:id="@+id/nav_user_page"
+        android:name="com.example.b_my_friend.ui.page.usersPage.UserPageFragment"
+        tools:layout="@layout/fragment_user_page" >
+        <action
+            android:id="@+id/action_UserPageFragment_to_photoReview3"
+            app:destination="@id/nav_photo_review" />
+    </fragment>
     <fragment
-        android:id="@+id/chatFragment"
+        android:id="@+id/nav_chat"
         android:name="com.example.b_my_friend.ui.chat.ChatFragment"
         tools:layout="@layout/fragment_chat" >
         <action
             android:id="@+id/action_chatFragment_to_UserPageFragment"
-            app:destination="@id/UserPageFragment" />
+            app:destination="@id/nav_user_page" />
     </fragment>
+    <dialog
+        android:id="@+id/nav_photo_review"
+        android:name="com.example.b_my_friend.ui.page.usersPage.PhotoReview"
+        tools:layout="@layout/review_item_photo" />
+    <fragment
+        android:id="@+id/new_post"
+        android:name="com.example.b_my_friend.ui.page.myPage.NewPostFragment"
+        tools:layout="@layout/fragment_new_post" />
+    <dialog
+        android:id="@+id/postEditFragment"
+        android:name="com.example.b_my_friend.ui.page.myPage.PostEditFragment"
+        android:label="fragment_post_edit"
+        tools:layout="@layout/fragment_post_edit">
+        <action
+            android:id="@+id/action_postEditFragment_to_new_post"
+            app:destination="@id/new_post"
+            app:popUpToInclusive="true" />
+    </dialog>
+    <dialog
+        android:id="@+id/addNewPhoto"
+        android:name="com.example.b_my_friend.ui.page.myPage.AddNewPhoto"
+        android:label="fragment_add_new_photo"
+        tools:layout="@layout/fragment_add_new_photo" />
+    <dialog
+        android:id="@+id/editablePhotoReview"
+        android:name="com.example.b_my_friend.ui.page.myPage.EditablePhotoReview"
+        android:label="fragment_editable_photo_review"
+        tools:layout="@layout/fragment_editable_photo_review"/>
 </navigation>

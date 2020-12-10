@@ -15,19 +15,12 @@ import kotlinx.android.synthetic.main.fragment_groups.*
 
 class GroupsFragment : Fragment(), GroupsAdapter.ItemClickListener{
 
-
     private var list: MutableList<User> = ArrayList()
     private lateinit var adapter: GroupsAdapter
-    private val manager = LinearLayoutManager(activity)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Log.e("TAG", list.toString())
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        uploadList()
+        //uploadList()
         setChatAdapter()
 
         fab.setOnClickListener { view ->
@@ -46,13 +39,12 @@ class GroupsFragment : Fragment(), GroupsAdapter.ItemClickListener{
 
     private fun setChatAdapter(){
         list_contacts.setHasFixedSize(true)
-        list_contacts.layoutManager = manager
         adapter = GroupsAdapter(list, this@GroupsFragment)
         list_contacts.adapter = adapter
     }
 
 
-    private fun uploadList(){
+/*    private fun uploadList(){
         list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
         list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
         list.add(User(name ="11111", email = "11111", avatar = R.mipmap.temp_icon_round))
@@ -61,8 +53,7 @@ class GroupsFragment : Fragment(), GroupsAdapter.ItemClickListener{
         list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
         list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
         list.add(User(name ="11111", email = "11111", avatar = R.mipmap.ic_launcher_round))
-    }
-
+    }*/
 
     override fun onItemClick(position: Int, view: View) {
     }

@@ -26,7 +26,7 @@ class GroupsAdapter(private val myDataset: MutableList<User>, private val onClic
             holder.nameView.background = null
             holder.infoView.text = item.email
             holder.infoView.background = null
-            holder.avatar.setImageResource(item.avatar)
+          //  holder.avatar.setImageBitmap(item.imageBase64ToBitmap())
         }
     }
 

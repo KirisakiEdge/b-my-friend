@@ -1,15 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<!-- android:layout_width="400dp" for scale of image(without this, bad scale)-->
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/loading_background"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp">
+    android:background="?attr/colorPrimary"
+    android:layout_width="@dimen/width_for_review_photo"
+    android:layout_height= "wrap_content">
 
-    <ImageView
-        android:id="@+id/photoReview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="@dimen/width_for_review_photo"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="@dimen/width_for_review_photo"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <!--fitCenter - scale to container without cutting
+             android:adjustViewBounds="true" - adjustment height and width
+              for cutting empty space between image and description-->
+            <ImageView
+                android:id="@+id/photoReview"
+                android:layout_width="@dimen/width_for_review_photo"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center"
+                android:src="@mipmap/temp_icon"/>
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/text" />
+            <TextView
+                android:id="@+id/createdAt"
+                android:gravity="end"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
