@@ -12,6 +12,7 @@
 2. Android Studio Emulator
 
 - Phisycal device
+  - if you dont have USB-connect in option "Build" you can build APK file
   - For launching from physical device need to USB-connect smartphone to PC/notebook
   - Give Access Developer Options and Enable USB Debugging on Android https://developer.android.com/studio/debug/dev-options
   - Android studio must detected your device (top in UI Android studio)
